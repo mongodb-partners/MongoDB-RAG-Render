@@ -1,0 +1,16 @@
+# Exported from Render on 2024-06-17T16:06:37Z
+services:
+- type: web
+  name: MongoDB-RAG-NextJS
+  runtime: node
+  repo: https://github.com/utsavMongoDB/MongoDB-RAG-NextJS
+  plan: free
+  envVars:
+  - key: OPENAI_API_KEY
+    sync: false
+  - key: MONGODB_URI
+    sync: false
+  region: oregon
+  buildCommand: npm install; npm run build
+  startCommand: npm run start
+version: "1"
