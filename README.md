@@ -3,53 +3,68 @@
 This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain and MongoDB Atlas. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' Vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses.
 
 ## Setup 
+Follow the steps below to setup a RAG chatbot, that can create knowledgebase using the data from PDF files you provide and   
+
+
 ### Prerequisites
 
 Before you begin, make sure you have the following ready:
 
 - **MongoDB Atlas URI**: Setup your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/))
+
+  _**NOTE** : Make sure you have allowed access using [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas_
     
 - **OpenAI API Key** (https://platform.openai.com/api-keys)
 
 
 
-## Steps to Deploy 
-Follow the below-mentioned steps to deploy the app on Render.
+### Option 1 (Recommended)
 
-#### Step 1: Click the below button to navigate to the Render deployment page
-[![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mongodb-partners/MongoDB-RAG-Render)
+#### Step 1: Configure
 
-#### Step 2: Add Environment Variables
+- Fork [mongodb-partners/MongoDB-RAG-Render](https://github.com/mongodb-partners/MongoDB-RAG-Render/) on GitHub.
+  
+- Create a new **Web Service** on Render, and give Render permission to access your new repo.
 
-Populate the values of the ENV variables mentioned below
+- Use the following values during creation:
 
-````
-OPENAI_API_KEY = "<YOUR_OPENAI_KEY>"              # API Key copied from the OpenAI portal
-MONGODB_URI = "<YOUR_MONGODB_URI>"                # Connection URI to MongoDB Instance
-````
+  ```
+  Runtime       	  Node
+  Build Command	  npm install && npm run build
+  Start Command	  npm run start
+  ```
 
-#### Step 3: Deploy
-Once you have updated the above values, go ahead and click deploy to deploy the app. Wait for the app to be deployed and start serving traffic.
+- Populate the values of the **Environment Variables** as mentioned below
 
-
-#### Step 4: Upload PDF files to create chunks
-Head to the `Train` tab and upload a PDF document. 
-
-If everything is deployed correctly, your document should start uploading to your cluster under the `chatter > training_data` collection.
-
-Your data should now start appearing as below in the collection.
-
-![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/316af753-8f7b-492f-b51a-c23c109a3fac)
+  ````
+  OPENAI_API_KEY = "<YOUR_OPENAI_KEY>"              # API Key copied from the OpenAI portal
+  MONGODB_URI = "<YOUR_MONGODB_URI>"                # Connection URI to MongoDB Instance
+  ````
 
 
+#### Step 2: Deploy
+- Once you have updated the above values, go ahead and deploy the app. 
+- Wait for the app to be deployed and start serving traffic.
 
-#### Step 5: Create Vector Index on Atlas
-Now for the RAG (QnA) to work, you need to create a Vector Search Index on Atlas so the vector data can be fetched and served to LLMs.
 
-Create a search index as below.
+#### Step 3: Upload PDF files to create chunks
+- Head to the `Train` tab on the website and upload a PDF document of your choice. 
 
-- Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index. First, click on the “Search” tab and then on “Create Search Index.” You’ll be taken to this page (shown below). Please click on “JSON Editor.”
- ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/b41a09a8-9875-4e5d-9549-e62652389d33)
+- If everything is deployed correctly, your document should start uploading to your cluster under the `chatter > training_data` collection.
+
+- Your data should now start appearing as below in the collection.
+
+  ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/316af753-8f7b-492f-b51a-c23c109a3fac)
+
+
+
+#### Step 4: Create Vector Index on Atlas
+- Now for the RAG (QnA) to work, you need to create a Vector Search Index on Atlas so the vector data can be fetched and served to LLMs.
+
+  #### Create a search index as below.
+
+-  Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index. First, click on the “Search” tab and then on “Create Search Index.” You’ll be taken to this page (shown below). Please click on “JSON Editor.”
+    ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/b41a09a8-9875-4e5d-9549-e62652389d33)
 
 - Next input the values as shown in the below image and create the Vector.
 
@@ -71,9 +86,20 @@ Create a search index as below.
 - You should start seeing a vector index getting created. You should get an email once index creation is completed.
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/c1842069-4080-4251-8269-08d9398e09aa)
 
+
+#### Step 5: Ask questions
 - Once completed, head to the QnA section to start asking questions based on your trained data, and you should get the desired response.
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/c76c8c19-e18a-46b1-834a-9a6bda7fec99)
+
+
+
+
+### Option 2
+Follow the below-mentioned steps to deploy the app on Render.
+
+#### Step 1: Click the below button to navigate to the Render deployment page 
+[![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mongodb-partners/MongoDB-RAG-Render)
 
 
 
