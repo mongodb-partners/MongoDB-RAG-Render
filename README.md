@@ -96,9 +96,8 @@ Before you begin, make sure you have the following ready:
 
 
 ### Option 2
-Follow the below-mentioned steps to deploy the app on Render.
+You can also use Render Blueprint to build and deploy the application. Go to the deployment page using the below button and follow the steps.
 
-#### Step 1: Click the below button to navigate to the Render deployment page 
 [![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mongodb-partners/MongoDB-RAG-Render)
 
 
