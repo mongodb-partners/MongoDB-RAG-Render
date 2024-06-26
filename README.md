@@ -24,7 +24,7 @@ Before you begin, make sure you have the following ready:
 
 - Fork [mongodb-partners/MongoDB-RAG-Render](https://github.com/mongodb-partners/MongoDB-RAG-Render/) on GitHub.
   
-- Create a new **Web Service** on Render, choose "Build and deploy from a Git repository and permit Render to access your ew repo.
+- Create a new **Web Service** on Render, choose "Build and deploy from a Git repository" and permit Render to access your ew repo.
 
 - Use the following values during creation:
 
