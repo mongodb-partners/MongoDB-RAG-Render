@@ -24,13 +24,13 @@ Before you begin, make sure you have the following ready:
 
 - Fork [mongodb-partners/MongoDB-RAG-Render](https://github.com/mongodb-partners/MongoDB-RAG-Render/) on GitHub.
   
-- Create a new **Web Service** on Render, and give Render permission to access your new repo.
+- Create a new **Web Service** on Render, choose "Build and deploy from a Git repository" and permit Render to access your new repo.
 
 - Use the following values during creation:
 
   ```
   Runtime       	  Node
-  Build Command	  npm install && npm run build
+  Build Command	  npm install; npm run build
   Start Command	  npm run start
   ```
 
