@@ -1,9 +1,9 @@
 
-# RAG based chatbot using Langchain and MongoDB Atlas
+# RAG-based chatbot using Langchain and MongoDB Atlas
 This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain and MongoDB Atlas. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' Vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses.
 
 ## Setup 
-Follow the steps below to setup a RAG chatbot, that can create knowledgebase using the data from PDF files you provide and   
+Follow the steps below to set up a RAG chatbot, that can create a knowledgebase using the data from PDF files you provide and   
 
 
 ### Prerequisites
@@ -24,7 +24,7 @@ Before you begin, make sure you have the following ready:
 
 - Fork [mongodb-partners/MongoDB-RAG-Render](https://github.com/mongodb-partners/MongoDB-RAG-Render/) on GitHub.
   
-- Create a new **Web Service** on Render, choose "Build and deploy from a Git repository" and permit Render to access your new repo.
+- Create a new **Web Service** on Render, choose "Build and deploy from a Git repository and permit Render to access your ew repo.
 
 - Use the following values during creation:
 
@@ -37,13 +37,13 @@ Before you begin, make sure you have the following ready:
 - Populate the values of the **Environment Variables** as mentioned below
 
   ````
-  OPENAI_API_KEY = "<YOUR_OPENAI_KEY>"              # API Key copied from the OpenAI portal
-  MONGODB_URI = "<YOUR_MONGODB_URI>"                # Connection URI to MongoDB Instance
+  OPENAI_API_KEY = <YOUR_OPENAI_KEY>           # API Key copied from the OpenAI portal
+  MONGODB_URI = <YOUR_MONGODB_URI>             # Connection URI to MongoDB Instance
   ````
 
 
 #### Step 2: Deploy
-- Once you have updated the above values, go ahead and deploy the app. 
+- Once you have updated the above values, deploy the app. 
 - Wait for the app to be deployed and start serving traffic.
 
 
@@ -66,11 +66,11 @@ Before you begin, make sure you have the following ready:
 -  Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index. First, click on the “Search” tab and then on “Create Search Index.” You’ll be taken to this page (shown below). Please click on “JSON Editor.”
     ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/b41a09a8-9875-4e5d-9549-e62652389d33)
 
-- Next input the values as shown in the below image and create the Vector.
+- Next, input the values shown in the image below and create the Vector.
 
   ````
     {
-      "fields": [
+      ields": [
         {
           "type": "vector",
           "path": "text_embedding",
