@@ -66,14 +66,12 @@ You must allow your new web service to talk to your MongoDB instance.
 
 
 ### Step 5: Create Vector Index on Atlas
-Now for the RAG Question Answering (QnA) to work, you need to create a Vector Search Index on Atlas so the vector data can be fetched and served to LLMs.
+For the RAG Question Answering (QnA) to work, you need to create a Vector Search Index on Atlas so your vector data can be fetched and served to LLMs.
 
-#### Create a search index as below.
-
-Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index. 
+Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index.
 
 * First, click on "Atlas Search” in the sidebar of the Atlas dashboard. Select the cluster you're using for this guide. Then click “Create Search Index.” 
-* You’ll be taken to this page (shown below). Here, select “JSON Editor” in the Atlast Vector Search section. Click "Next".
+* You’ll be taken to this page (shown below). Here, select “JSON Editor” in the Atlas Vector Search section. Click "Next".
     ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/b41a09a8-9875-4e5d-9549-e62652389d33)
 
 * Input the values shown below and create the vector index.
@@ -97,7 +95,7 @@ Let’s head over to our MongoDB Atlas user interface to create our Vector Searc
 
 
 ### Step 6: Ask questions
-Finally, head to the QnA section to start asking questions based on your trained data, and you should get the desired response.
+Finally, head back to your chatbot website. Select the "QnA" tab to start asking questions based on your trained data.
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/c76c8c19-e18a-46b1-834a-9a6bda7fec99)
 
