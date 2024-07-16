@@ -10,31 +10,31 @@ Follow the steps below to set up a RAG chatbot, that can create a knowledge base
 
 Before you begin, make sure you have the following ready:
 
-- **MongoDB Atlas URI**: Set up your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/))
+- **MongoDB Atlas URI**: Set up your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/)). Then create an Atlas cluster.
 
   _**NOTE** : Make sure to allow access from your new RAG service (once it's hosted) to your MongoDB instance using the [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas_.
     
 - **OpenAI API Key** Set up an OpenAI account. [Then retrieve your API keys here](https://platform.openai.com/api-keys).
 
-
+- **A PDF of your choice**. This PDF represents your knowledge base. (Here's an [example PDF](https://drive.google.com/file/d/1yIHmqe5-D_32tlSN1LZq1LJY8TStziXx/view?usp=drive_link) if you need one.)
 
 ### Option 1 (Recommended)
 
-#### Step 1: Configure
+#### Step 1: Configure Render Web Service
 
 - Fork [mongodb-partners/MongoDB-RAG-Render](https://github.com/mongodb-partners/MongoDB-RAG-Render/) on GitHub.
   
-- Create a [new **Web Service** on Render](https://docs.render.com/web-services#deploy-your-own-code). Choose "Build and deploy from a Git repository" and permit Render to access your forked GitHub repo.
+- Create a [new **Web Service** on Render](https://docs.render.com/web-services#deploy-your-own-code). Choose "Build and deploy from a Git repository" and select your forked GitHub repo.
 
-- Use the following values during creation:
+- Use the following values during Web Service creation:
 
   ```
-  Runtime       	  Node
-  Build Command	  npm install; npm run build
-  Start Command	  npm run start
+  Runtime/Language    Node
+  Build Command       npm install; npm run build
+  Start Command       npm run start
   ```
 
-- Populate the values of the **Environment Variables** as mentioned below
+- Populate the values of the **Environment Variables** as follows:
 
   ````
   OPENAI_API_KEY = <YOUR_OPENAI_KEY>           # API Key copied from the OpenAI portal
@@ -42,13 +42,13 @@ Before you begin, make sure you have the following ready:
   ````
 
 
-#### Step 2: Deploy
-- Once you have updated the above values, deploy the app. 
-- Wait for the app to be deployed and start serving traffic.
+#### Step 2: Deploy Render Web Service
+- Once you have inputted the above values, create the Web Service.
+- Wait for the Web Service to be deployed and start serving traffic.
 
 
-#### Step 3: Upload PDF files to create chunks
-- Head to the `Train` tab on the website and upload a PDF document of your choice. 
+#### Step 3: Upload PDF files to MongoDB Atlas
+- Head to the `Train` tab on the MongoDB website and upload a PDF document of your choice. 
 
 - If everything is deployed correctly, your document should start uploading to your cluster under the `chatter > training_data` collection.
 
