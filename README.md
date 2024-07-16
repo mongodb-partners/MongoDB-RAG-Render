@@ -3,18 +3,18 @@
 This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain and MongoDB Atlas. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' Vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses.
 
 ## Setup 
-Follow the steps below to set up a RAG chatbot, that can create a knowledgebase using the data from PDF files you provide and   
+Follow the steps below to set up a RAG chatbot, that can create a knowledge base using the data from PDF files you provide.
 
 
 ### Prerequisites
 
 Before you begin, make sure you have the following ready:
 
-- **MongoDB Atlas URI**: Setup your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/))
+- **MongoDB Atlas URI**: Set up your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/))
 
-  _**NOTE** : Make sure you have allowed access using [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas_
+  _**NOTE** : Make sure to allow access from your new RAG service (once it's hosted) to your MongoDB instance using the [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas_.
     
-- **OpenAI API Key** (https://platform.openai.com/api-keys)
+- **OpenAI API Key** Set up an OpenAI account. [Then retrieve your API keys here](https://platform.openai.com/api-keys).
 
 
 
@@ -24,7 +24,7 @@ Before you begin, make sure you have the following ready:
 
 - Fork [mongodb-partners/MongoDB-RAG-Render](https://github.com/mongodb-partners/MongoDB-RAG-Render/) on GitHub.
   
-- Create a new **Web Service** on Render, choose "Build and deploy from a Git repository" and permit Render to access your git repo.
+- Create a [new **Web Service** on Render](https://docs.render.com/web-services#deploy-your-own-code). Choose "Build and deploy from a Git repository" and permit Render to access your forked GitHub repo.
 
 - Use the following values during creation:
 
