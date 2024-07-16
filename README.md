@@ -1,9 +1,9 @@
 
-# RAG-based chatbot using Langchain and MongoDB Atlas
-This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain and MongoDB Atlas. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' Vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses.
+# RAG-based chatbot using LangChain, MongoDB Atlas, and Render
+This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain, MongoDB Atlas, and Render. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' Vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses. Render makes it easy to build, deploy, and scale the chatbot web service.
 
 ## Setup 
-Follow the steps below to set up a RAG chatbot, that can create a knowledge base using the data from PDF files you provide.
+Follow the steps below to set up a RAG chatbot powered by data from PDF files you provide.
 
 
 ### Prerequisites
@@ -12,7 +12,9 @@ Before you begin, make sure you have the following ready:
 
 - **MongoDB Atlas URI**: Set up your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/)). Then create an Atlas cluster.
     
-- **OpenAI API Key** Set up an OpenAI account. [Then retrieve your API keys here](https://platform.openai.com/api-keys).
+- **OpenAI API Key**: Set up an OpenAI account. [Then retrieve your API keys here](https://platform.openai.com/api-keys).
+
+- **Render account**: Set up a [Render](https://render.com/) account.
 
 - **A PDF of your choice**. This PDF represents your knowledge base. (Here's an [example PDF](https://drive.google.com/file/d/1yIHmqe5-D_32tlSN1LZq1LJY8TStziXx/view?usp=drive_link) if you need one.)
 
