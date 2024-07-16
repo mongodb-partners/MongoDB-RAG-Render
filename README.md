@@ -49,10 +49,10 @@ Before you begin, make sure you have the following ready:
 
 ### Step 3: Give Render Web Service permission to access Atlas
 You must allow your new web service to talk to your MongoDB instance.
-* Locate the [outbound IP addresses](https://docs.render.com/static-outbound-ip-addresses) for your Render web service:
+- Locate the [outbound IP addresses](https://docs.render.com/static-outbound-ip-addresses) for your Render web service:
   ![image](./assets/render-outbound-ip-addresses.png)
 
-* Use the [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas to grant access to those IP addresses.
+- Use the [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas to grant access to those IP addresses.
 
 
 ### Step 4: Upload PDF files to your chatbot
@@ -70,11 +70,11 @@ For the RAG Question Answering (QnA) to work, you need to create a Vector Search
 
 Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index.
 
-* First, click on "Atlas Search” in the sidebar of the Atlas dashboard. Select the cluster you're using for this guide. Then click “Create Search Index.” 
-* You’ll be taken to this page (shown below). Here, select “JSON Editor” in the Atlas Vector Search section. Click "Next".
+- First, click on "Atlas Search” in the sidebar of the Atlas dashboard. Select the cluster you're using for this guide. Then click “Create Search Index.” 
+- You’ll be taken to this page (shown below). Here, select “JSON Editor” in the Atlas Vector Search section. Click "Next".
     ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/b41a09a8-9875-4e5d-9549-e62652389d33)
 
-* Input the values shown below and create the vector index.
+- Input the values shown below and create the vector index.
     ````
       {
         "fields": [
@@ -90,7 +90,7 @@ Let’s head over to our MongoDB Atlas user interface to create our Vector Searc
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/d7e560b3-695c-4210-8a6d-ea50c589bc70)
 
-* You should start seeing a vector index getting created. You should get an email once index creation is completed.
+- You should start seeing a vector index getting created. You should get an email once index creation is completed.
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/c1842069-4080-4251-8269-08d9398e09aa)
 
 
