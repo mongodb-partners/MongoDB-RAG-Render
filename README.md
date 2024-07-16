@@ -72,18 +72,19 @@ Now for the RAG Question Answering (QnA) to work, you need to create a Vector Se
 
 Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index. 
 
-* First, click on the “Search” tab and then on “Create Search Index.” You’ll be taken to this page (shown below). Please click on “JSON Editor.”
+* First, click on "Atlas Search” in the sidebar of the Atlas dashboard. Select the cluster you're using for this guide. Then click “Create Search Index.” 
+* You’ll be taken to this page (shown below). Here, select “JSON Editor” in the Atlast Vector Search section. Click "Next".
     ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/b41a09a8-9875-4e5d-9549-e62652389d33)
 
-* Next, input the values shown in the image below and create the Vector.
+* Input the values shown below and create the vector index.
     ````
       {
-        ields": [
+        "fields": [
           {
             "type": "vector",
             "path": "text_embedding",
             "numDimensions": 1536,
-            "similarity": "cosine",
+            "similarity": "cosine"
           }
         ]
       }
