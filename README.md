@@ -11,16 +11,13 @@ Follow the steps below to set up a RAG chatbot, that can create a knowledge base
 Before you begin, make sure you have the following ready:
 
 - **MongoDB Atlas URI**: Set up your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/)). Then create an Atlas cluster.
-
-  _**NOTE** : Make sure to allow access from your new RAG service (once it's hosted) to your MongoDB instance using the [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas_.
     
 - **OpenAI API Key** Set up an OpenAI account. [Then retrieve your API keys here](https://platform.openai.com/api-keys).
 
 - **A PDF of your choice**. This PDF represents your knowledge base. (Here's an [example PDF](https://drive.google.com/file/d/1yIHmqe5-D_32tlSN1LZq1LJY8TStziXx/view?usp=drive_link) if you need one.)
 
-### Option 1 (Recommended)
 
-#### Step 1: Configure Render Web Service
+### Step 1: Configure Render Web Service
 
 - Fork [mongodb-partners/MongoDB-RAG-Render](https://github.com/mongodb-partners/MongoDB-RAG-Render/) on GitHub.
   
@@ -42,63 +39,64 @@ Before you begin, make sure you have the following ready:
   ````
 
 
-#### Step 2: Deploy Render Web Service
-- Once you have inputted the above values, create the Web Service.
-- Wait for the Web Service to be deployed and start serving traffic.
+### Step 2: Deploy Render Web Service
+- Once you have inputted the above values, create the service.
+- Wait for the service to be deployed and start serving traffic.
+- Click the URL of your new service to open your new chatbot website:
+![image](./assets/render-service-url.png)
+
+### Step 3: Give Render Web Service permission to access Atlas
+You must allow your new web service to talk to your MongoDB instance.
+* Locate the [outbound IP addresses](https://docs.render.com/static-outbound-ip-addresses) for your Render web service:
+  ![image](./assets/render-outbound-ip-addresses.png)
+
+* Use the [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas to grant access to those IP addresses.
 
 
-#### Step 3: Upload PDF files to MongoDB Atlas
-- Head to the `Train` tab on the MongoDB website and upload a PDF document of your choice. 
+### Step 4: Upload PDF files to your chatbot
+- On your chatbot website, select the `Train` tab and upload a PDF document of your choice.
 
 - If everything is deployed correctly, your document should start uploading to your cluster under the `chatter > training_data` collection.
 
-- Your data should now start appearing as below in the collection.
+- Your data should appear like this in the collection:
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/316af753-8f7b-492f-b51a-c23c109a3fac)
 
 
+### Step 5: Create Vector Index on Atlas
+Now for the RAG Question Answering (QnA) to work, you need to create a Vector Search Index on Atlas so the vector data can be fetched and served to LLMs.
 
-#### Step 4: Create Vector Index on Atlas
-- Now for the RAG (QnA) to work, you need to create a Vector Search Index on Atlas so the vector data can be fetched and served to LLMs.
+#### Create a search index as below.
 
-  #### Create a search index as below.
+Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index. 
 
--  Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index. First, click on the “Search” tab and then on “Create Search Index.” You’ll be taken to this page (shown below). Please click on “JSON Editor.”
+* First, click on the “Search” tab and then on “Create Search Index.” You’ll be taken to this page (shown below). Please click on “JSON Editor.”
     ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/b41a09a8-9875-4e5d-9549-e62652389d33)
 
-- Next, input the values shown in the image below and create the Vector.
-
-  ````
-    {
-      ields": [
-        {
-          "type": "vector",
-          "path": "text_embedding",
-          "numDimensions": 1536,
-          "similarity": "cosine",
-        }
-      ]
-    }
-  ````
+* Next, input the values shown in the image below and create the Vector.
+    ````
+      {
+        ields": [
+          {
+            "type": "vector",
+            "path": "text_embedding",
+            "numDimensions": 1536,
+            "similarity": "cosine",
+          }
+        ]
+      }
+    ````
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/d7e560b3-695c-4210-8a6d-ea50c589bc70)
 
-- You should start seeing a vector index getting created. You should get an email once index creation is completed.
+* You should start seeing a vector index getting created. You should get an email once index creation is completed.
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/c1842069-4080-4251-8269-08d9398e09aa)
 
 
-#### Step 5: Ask questions
-- Once completed, head to the QnA section to start asking questions based on your trained data, and you should get the desired response.
+### Step 6: Ask questions
+Finally, head to the QnA section to start asking questions based on your trained data, and you should get the desired response.
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/c76c8c19-e18a-46b1-834a-9a6bda7fec99)
-
-
-
-
-### Option 2
-You can also use Render Blueprint to build and deploy the application. Go to the deployment page using the below button and follow the steps.
-
-[![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mongodb-partners/MongoDB-RAG-Render)
 
 
 
