@@ -1,6 +1,6 @@
 
 # RAG-based chatbot using LangChain, MongoDB Atlas, and Render
-This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain, MongoDB Atlas, and Render. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' Vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses. Render makes it easy to build, deploy, and scale the chatbot web service.
+This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain, MongoDB Atlas, and Render. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses. Render makes it easy to build, deploy, and scale the chatbot web service.
 
 ## Setup 
 Follow the steps below to set up a RAG chatbot powered by data from PDF files you provide.
