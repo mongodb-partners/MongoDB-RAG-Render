@@ -1,40 +1,39 @@
 
-# RAG-based chatbot using Langchain and MongoDB Atlas
-This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain and MongoDB Atlas. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' Vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses.
+# RAG-based chatbot using LangChain, MongoDB Atlas, and Render
+This starter template implements a Retrieval-Augmented Generation (RAG) chatbot using LangChain, MongoDB Atlas, and Render. RAG combines AI language generation with knowledge retrieval for more informative responses. LangChain simplifies building the chatbot logic, while MongoDB Atlas' vector database capability provides a powerful platform for storing and searching the knowledge base that fuels the chatbot's responses. Render makes it easy to build, deploy, and scale the chatbot web service.
 
 ## Setup 
-Follow the steps below to set up a RAG chatbot, that can create a knowledgebase using the data from PDF files you provide and   
+Follow the steps below to set up a RAG chatbot powered by data from PDF files you provide.
 
 
 ### Prerequisites
 
 Before you begin, make sure you have the following ready:
 
-- **MongoDB Atlas URI**: Setup your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/))
-
-  _**NOTE** : Make sure you have allowed access using [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas_
+- **MongoDB Atlas URI**: Set up your account if you don't already have one ([Create Account](https://www.mongodb.com/docs/guides/atlas/account/)). Then create an Atlas cluster.
     
-- **OpenAI API Key** (https://platform.openai.com/api-keys)
+- **OpenAI API Key**: Set up an OpenAI account. [Then retrieve your API keys here](https://platform.openai.com/api-keys).
+
+- **Render account**: Set up a [Render](https://render.com/) account.
+
+- **A PDF of your choice**. This PDF represents your knowledge base. (Here's an [example PDF](https://drive.google.com/file/d/1yIHmqe5-D_32tlSN1LZq1LJY8TStziXx/view?usp=drive_link) if you need one.)
 
 
-
-### Option 1 (Recommended)
-
-#### Step 1: Configure
+### Step 1: Configure Render Web Service
 
 - Fork [mongodb-partners/MongoDB-RAG-Render](https://github.com/mongodb-partners/MongoDB-RAG-Render/) on GitHub.
   
-- Create a new **Web Service** on Render, choose "Build and deploy from a Git repository" and permit Render to access your git repo.
+- Create a [new **Web Service** on Render](https://docs.render.com/web-services#deploy-your-own-code). Choose "Build and deploy from a Git repository" and select your forked GitHub repo.
 
-- Use the following values during creation:
+- Use the following values during Web Service creation:
 
   ```
-  Runtime       	  Node
-  Build Command	  npm install; npm run build
-  Start Command	  npm run start
+  Runtime/Language    Node
+  Build Command       npm install; npm run build
+  Start Command       npm run start
   ```
 
-- Populate the values of the **Environment Variables** as mentioned below
+- Populate the values of the **Environment Variables** as follows:
 
   ````
   OPENAI_API_KEY = <YOUR_OPENAI_KEY>           # API Key copied from the OpenAI portal
@@ -42,44 +41,52 @@ Before you begin, make sure you have the following ready:
   ````
 
 
-#### Step 2: Deploy
-- Once you have updated the above values, deploy the app. 
-- Wait for the app to be deployed and start serving traffic.
+### Step 2: Deploy Render Web Service
+- Once you have inputted the above values, create the service.
+- Wait for the service to be deployed and start serving traffic.
+- Click the URL of your new service to open your new chatbot website:
+![image](./assets/render-service-url.png)
+
+### Step 3: Give Render Web Service permission to access Atlas
+You must allow your new web service to talk to your MongoDB instance.
+- Locate the [outbound IP addresses](https://docs.render.com/static-outbound-ip-addresses) for your Render web service:
+  ![image](./assets/render-outbound-ip-addresses.png)
+
+- Use the [ip-access-list](https://www.mongodb.com/docs/atlas/security/ip-access-list/) in MongoDB Atlas to grant access to those IP addresses.
 
 
-#### Step 3: Upload PDF files to create chunks
-- Head to the `Train` tab on the website and upload a PDF document of your choice. 
+### Step 4: Upload PDF files to your chatbot
+- On your chatbot website, select the `Train` tab and upload a PDF document of your choice.
 
 - If everything is deployed correctly, your document should start uploading to your cluster under the `chatter > training_data` collection.
 
-- Your data should now start appearing as below in the collection.
+- Your data should appear like this in the collection:
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/316af753-8f7b-492f-b51a-c23c109a3fac)
 
 
+### Step 5: Create Vector Index on Atlas
+For the RAG Question Answering (QnA) to work, you need to create a Vector Search Index on Atlas so your vector data can be fetched and served to LLMs.
 
-#### Step 4: Create Vector Index on Atlas
-- Now for the RAG (QnA) to work, you need to create a Vector Search Index on Atlas so the vector data can be fetched and served to LLMs.
+Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index.
 
-  #### Create a search index as below.
-
--  Let’s head over to our MongoDB Atlas user interface to create our Vector Search Index. First, click on the “Search” tab and then on “Create Search Index.” You’ll be taken to this page (shown below). Please click on “JSON Editor.”
+- First, click on "Atlas Search” in the sidebar of the Atlas dashboard. Select the cluster you're using for this guide. Then click “Create Search Index.” 
+- You’ll be taken to this page (shown below). Here, select “JSON Editor” in the Atlas Vector Search section. Click "Next".
     ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/b41a09a8-9875-4e5d-9549-e62652389d33)
 
-- Next, input the values shown in the image below and create the Vector.
-
-  ````
-    {
-      ields": [
-        {
-          "type": "vector",
-          "path": "text_embedding",
-          "numDimensions": 1536,
-          "similarity": "cosine",
-        }
-      ]
-    }
-  ````
+- Input the values shown below and create the vector index.
+    ````
+      {
+        "fields": [
+          {
+            "type": "vector",
+            "path": "text_embedding",
+            "numDimensions": 1536,
+            "similarity": "cosine"
+          }
+        ]
+      }
+    ````
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/d7e560b3-695c-4210-8a6d-ea50c589bc70)
 
@@ -87,18 +94,10 @@ Before you begin, make sure you have the following ready:
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/c1842069-4080-4251-8269-08d9398e09aa)
 
 
-#### Step 5: Ask questions
-- Once completed, head to the QnA section to start asking questions based on your trained data, and you should get the desired response.
+### Step 6: Ask questions
+Finally, head back to your chatbot website. Select the "QnA" tab to start asking questions based on your trained data.
 
   ![image](https://github.com/utsavMongoDB/MongoDB-RAG-NextJS/assets/114057324/c76c8c19-e18a-46b1-834a-9a6bda7fec99)
-
-
-
-
-### Option 2
-You can also use Render Blueprint to build and deploy the application. Go to the deployment page using the below button and follow the steps.
-
-[![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mongodb-partners/MongoDB-RAG-Render)
 
 
 
