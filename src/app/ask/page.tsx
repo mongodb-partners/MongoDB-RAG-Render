@@ -1,15 +1,28 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import NavBar from '../component/navbar';
+import { useSearchParams } from 'next/navigation';
 
-
-export default function Home() {
+// Create a separate component for the content
+const ChatContent = () => {
   const [waitingForAI, setWaitingForAI] = useState<Boolean>(false);
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  const searchParams = useSearchParams();
+  const analysisData = searchParams?.get('data') ?? '';
+  
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    initialMessages: analysisData ? [
+      {
+        id: 'analysis',
+        role: 'system',
+        content: analysisData
+      }
+    ] : []
+  });
 
-
+  if (!searchParams) return null;
+  
   return (
     <div>
       <NavBar />
@@ -29,9 +42,7 @@ export default function Home() {
           {messages.length == 0 &&
             (
               <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                <img style={{ width: "25%", marginBottom: "2%" }} src='/MongoDB_White.svg' />
-                <span style={{ marginBottom: '2%', fontSize: '40px', justifySelf: 'center' }}>+</span>
-                <img style={{ width: "8%", marginBottom: "2%" }} src='/openAI.svg' />
+                <img style={{ width: "25%", marginBottom: "2%" }} src='/logo.png' />
               </div>
             )
           }
@@ -60,11 +71,12 @@ export default function Home() {
 
         <div className="flex items-center pt-0 chat-window">
           <form className="flex items-center justify-center w-full space-x-2" onSubmit={handleSubmit}>
+           <input hidden value={searchParams.get('data') ?? ''} />
             <input
               value={input}
               onChange={handleInputChange}
               className="flex h-10 w-full rounded-md border border-[#e5e7eb] px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
-              placeholder="Ask what you have in mind"
+              placeholder="How can I help you?"
             />
             <button
               type="submit"
@@ -77,4 +89,15 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+// Main page component with Suspense
+const ChatPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ChatContent />
+    </Suspense>
+  );
+};
+
+export default ChatPage;
